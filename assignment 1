@@ -1,0 +1,139 @@
+--1answer
+select getdate() as dateoftoday;
+--------------------------------------------------
+---2answer
+select count(*)as emloyees_salary
+from employees
+group by department_id
+having count(*)>1;
+select*from employees;
+select*from departments;
+select*from jobs;
+--------------------------------------------------
+---3rd answer
+select department_id from employees
+intersect
+select department_id from departments;
+---------------------------------------------------
+---4th answer
+select top 10*
+from employees
+order by employee_id desc;
+------------------------------------------------
+---5th answer
+select top 5*
+from employees
+order by salary desc;
+-------------------------------------------------
+---6th answer
+select sum(salary)
+from employees;
+------------------------------------------------
+---7th answer
+select*
+from employees
+where year(hire_date)=2025;
+------------------------------------------
+---8th answer
+select top 1 count(*)
+from departments
+group by department_id
+order by count(*) desc;
+--------------------------------------------
+---9th answer
+select  count(*)as department_wise
+from employees
+group by department_id;
+-------------------------------------------
+--10th answer
+select salary* 1.1 as updated_salary
+from employees
+group by salary;
+-------------------------------------------
+---11th answer
+select*
+from employees
+where salary between 50000 and 100000;
+---------------------------------------------
+---12th answer
+select job_title, count(*)
+from employees
+group by job_title;
+--------------------------------------------
+---13th answer
+select *
+from employees
+where department_id in(101,102);
+----------------------------------------------
+---14th answer
+select substring('job_title',1,3)
+from employees;
+----------------------------------------------
+---15th answer
+select first_name+','+last_name
+from employees;
+---------------------------------------------
+---16th answer
+select substring(email,charindex('@',email)+1,len(email))
+from employees;
+---------------------------------------------
+---17th answer
+select*from departments
+update departments
+set department_name='gaming'
+where department_id=1;
+-------------------------------------------------
+---18th answer
+select upper(left (first_name,1))+lower (substring(first_name,2,len(first_name)))
+from employees;
+-----------------------------------------------------------------------------------
+---19th answer
+select format(hire_date ,'dd/mm/yy')
+from employees;
+--------------------------------------------------------
+---20th answer
+select employee_id, 
+             first_name, datediff(year,hire_date,getdate())
+from employees;
+---------------------------------------------------------
+---21st answer
+select employee_id,first_name,dateadd(year,60,dob)
+from employees
+where dateadd(year,60,dob)between getdate()and dateadd(year,5,getdate());
+----------------------------------------------------------------------------------------
+---sql theory
+---1answer
+in sql char is only applicable for charecters but varchar is applicable for numbers,charecters,specisl symbols etc....
+------------------------------------------------------------------------------------------------------------------------------------
+
+---2nd answer
+in sql the where clause is used before the order by and the having clause is used after the order by.
+where alause is used to filter the rows
+having is used to filter the groups
+-----------------------------------------------------------------------------------------------------------------------
+---3rd answer
+the purpose of group by clause in sql it groups the values of different departments into one group
+it is mainly used with aggeregate function like it groups the values after we get the results of aggregate functions.
+-----------------------------------------------------------------------------------------------------------------------
+---4th answer
+1.data definition language DDL
+it is an sql command
+in this commands are
+create,alter,drop,truncate
+---------------------------------------------
+2.data manipulation languade DML
+insert,delete,update
+---------------------------------------------
+3.data control language DCL
+grant, revoke
+---------------------------------------------
+4.transaction control language TCL
+commit,rollback
+---------------------------------------------
+---5th answer
+create it creates a database  or table
+alter it adds new column to existing table
+drop it drops the structure of a table permanently...
+---------------------------------------------------------
+
+
