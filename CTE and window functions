@@ -1,0 +1,68 @@
+---Employees earning more than department average
+select employee_id, first_name, last_name
+from employees e
+where e.salary>(select avg(salary) as department_averagesal
+                from employees e2
+				where e2.department_id=e.department_id
+				group by department_id);
+-------------------------------------------------------------------
+---Employees earning more than their manager
+select *
+from employees e
+where  exists(select *
+              from employees m
+			  where e.manager_id=m.employee_id
+			  and e.salary>m.salary);
+select * from employees;
+select * from departments;
+-----------------------------------------------------------------------------
+---Departments where at least one employee earns exactly department average
+select department_id
+from employees e
+where exists(select avg(salary)as department_average
+             from employees e2
+	         where e2.department_id=e.department_id
+			 group by department_id
+	         having e.salary=avg(salary));
+----------------------------------------------------------------------------------
+
+--Find employees who earn the highest salary in their department using a correlated subquery (NO CTE, NO window function).
+select *
+from employees e
+where salary=(select max(salary)as department_average
+              from employees e2
+			  where e2.department_id=e.department_id
+			  group by department_id);
+----------------------------------------------------------------------------------------------------------------------------
+
+--Find top 3 highest paid employees using
+with top_ranking as(
+select employee_id,
+       salary,
+	   DENSE_RANK() over (order by salary desc)as rnk
+from employees
+)
+select*
+from top_ranking
+where rnk<=3;
+------------------------------------------------------------------------------------------------------------------------------
+
+--Find the second highest salary in each department using
+with top_ranking as(
+select employee_id,
+       salary,
+	   DENSE_RANK() over(partition by department_id order by salary desc) as rnk
+	   from employees
+	   )
+	   select *
+	   from top_ranking
+	   where rnk=2;
+
+WITH ranked_salary AS (
+    SELECT salary,
+           DENSE_RANK() OVER (ORDER BY salary asc) AS rnk
+    FROM employees
+)
+SELECT MIN(salary) AS third_highest_salary
+FROM ranked_salary
+WHERE rnk = 3;
