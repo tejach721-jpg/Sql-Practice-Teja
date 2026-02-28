@@ -1,0 +1,51 @@
+1)Retrieve the second highest salary using ROW_NUMBER().
+with top_ranking as(
+select salary,
+row_number() over (order by salary desc)as rnk
+from employees
+)
+select*
+from top_ranking
+where rnk=2;
+----------------------------------------------------------------------------------------
+2) Write a query to display all employees and their department names using INNER JOIN.
+select e.employee_id,
+       e.first_name,
+	   e.last_name,
+       d.department_name
+from employees as e
+inner join departments as d
+on e.department_id=d.department_id;
+select * from employees;
+select * from departments;
+----------------------------------------------------------------------------------------
+3) Find employees who are not assigned to any department
+select *
+from employees e
+where not exists (select department_name
+                  from departments d
+                  where e.department_id=d.department_id
+	              and d.department_name is not null);
+-----------------------------------------------------------------------------------------                
+4) Display employee name, manager name (self join).
+select e.first_name,
+       e.last_name,
+       m.manager_id
+	   from employees as e
+	   left join employees as m
+	   on e.manager_id=m.employee_id;
+-----------------------------------------------------------------------------------------     
+5) List employees working in the department  “finance”.
+select *
+from employees e
+where e.department_id in(select department_id
+                         from departments d
+	                     where e.department_id=d.department_id
+	                     and department_name='finance');
+------------------------------------------------------------------------------------------                    
+6) Find employees earning more than the average salary.
+select*
+from employees
+where salary>(select avg(salary) as average_salary
+              from employees e2
+			  where e2.department_id=department_id);
