@@ -1,19 +1,58 @@
+create database hospital;
+use hospital;
+ 
+--patient table
+create table patient(
+   patient_id int primary key,
+   patient_name char(50) not null,
+   gender char(1),
+   mobile_no bigint unique
+);
+
+--doctor table
+create table doctors( 
+   doctor_id int primary key,
+   doctor_name char(20),
+   specialization varchar(20)
+);
+
+--appointment table
+create table appointments(
+   appointment_id bigint primary key,
+   patient_id int ,
+   doctor_id  int ,
+   appointment_date date,
+   appointment_time time,
+   status char(20)
+);
+drop table appointments;
+
+--billing table
+create table billing(
+   billing_id int,
+   billing_date date,
+   patient_id int,
+   doctor_id int,
+   amount bigint,
+status char(10),
+  FOREIGN KEY (patient_id) REFERENCES patient(patient_id),
+  FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id)
+     
+);
+drop table billing;
+
+select * from patient;
+select*from doctors;
+select*from appointments;
+select*from billing;
+
++-
+insert into patient values(125,'glu','f','1245785652');
+insert into doctors values(145,'vijay','surgeon');
+insert into appointments values(155,125,145,'2026-12-2','12:00','approved');
+insert into billing values (168,'2020-11-8',125,145,'50050','denied');
+
+
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# SQL Server Management Studio Solution File, Format Version 20.00
-VisualStudioVersion = 15.0.28307.421
-MinimumVisualStudioVersion = 10.0.40219.1
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Default|Default = Default|Default
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{331F8F62-6197-4174-BAE5-2060F167CE04}.Default|Default.ActiveCfg = Default
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {440679F0-F56D-42DA-9F14-6F1AFD296970}
-	EndGlobalSection
-EndGlobal
+
+
