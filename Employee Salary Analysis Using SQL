@@ -48,4 +48,15 @@ select top 1 gender,sum(salary)
 from employees27
 group by gender
 order by sum(salary) desc
+-----------------------------------------------------------------
+---How to find highest total salary by department?
+select department, sum(salary) as total_salary
+from employees27
+group by department;
+
+
+select top 1 department,sum(salary)as total_salary
+from employees27
+group by department
+order by total_salary desc
 
