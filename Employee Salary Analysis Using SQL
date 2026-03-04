@@ -1,0 +1,51 @@
+create table employees27(
+emp_id int primary key,
+gender varchar(1),
+name varchar(20),
+department varchar(20),
+salary bigint
+);
+
+insert into employees27 values
+(1,'m','Teja','IT',60000),
+(2,'f','Bhanu','Finance',45000),
+(3,'f','Ramya','Medical',52000),
+(4,'m','Yash','IT',75000),
+(5,'f','Sravani','Finance',68000),
+(6,'m','Arjun','Medical',48000),
+(7,'f','Divya','IT',72000),
+(8,'m','Kiran','Finance',50000),
+(9,'f','Meena','Medical',58000),
+(10,'m','Rahul','IT',65000);
+
+
+select * from employees27;
+
+
+--- department wise Total employees?
+select  department,count(*) as total_employees_count
+from employees27
+group by department;
+--------------------------------------------------------------
+--- department wise  Highest salary?
+select department, max(salary) as highest_salary
+from employees27
+group by department;
+--------------------------------------------------------------
+---Department wise average salary?
+select department,avg(salary)as average_salary
+from employees27
+group by department;
+---------------------------------------------------------------
+---Which gender has highest total salary?
+
+select gender, sum(salary) as total_salary
+from employees27
+group by gender;
+
+
+select top 1 gender,sum(salary)
+from employees27
+group by gender
+order by sum(salary) desc
+
